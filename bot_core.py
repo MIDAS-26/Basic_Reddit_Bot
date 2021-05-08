@@ -1,4 +1,5 @@
 import praw
+import time
 
 f = open("D://Github Details//basic-reddit-bot_details.txt","r")
 lines = f.readlines()
@@ -10,7 +11,8 @@ reddit = praw.Reddit(client_id = "{}".format((lines[0]).strip()),
                      user_agent = "{}".format((lines[4]).strip()))
 
 def search():
-    subreddit = reddit.subreddit("python")
+    schoice = input("Enter name of a subreddit: ").strip()
+    subreddit = reddit.subreddit(schoice)
     hot_sub = subreddit.hot(limit = 5)
 
     for submission in hot_sub:
@@ -30,10 +32,10 @@ def search():
         except Exception as e:
             print(e)
 
-# search()
 
 def stream():
-    subreddit = reddit.subreddit("politics")
+    schoice = input("Enter name of a subreddit: ").strip()
+    subreddit = reddit.subreddit(schoice)
     try:
         for comment in subreddit.stream.comments():
             print("-"*100,
@@ -45,6 +47,17 @@ def stream():
                 print(e)
     except Exception as e:
         print(e)
-stream()
+
+while True:
+    choice = int(input("\n\nOptions are: \n\t1. Search a subreddit, get titles, upvotes, downvotes, comments. \n\t2. Stream comments of a subreddit. \n\t3. Exit \nEnter your choice: ").strip())
+
+    if choice == 1:
+        search()
+    elif choice == 2:
+        stream()
+    else:
+        print("Bye!")
+        sleep(4)
+        SystemExit
 
         
