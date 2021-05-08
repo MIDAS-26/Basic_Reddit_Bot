@@ -30,4 +30,21 @@ def search():
         except Exception as e:
             print(e)
 
-search()
+# search()
+
+def stream():
+    subreddit = reddit.subreddit("politics")
+    try:
+        for comment in subreddit.stream.comments():
+            print("-"*100,
+                  "\nCOMMENT: ",comment.body)
+            try:
+                for reply in comment.replies:
+                    print("\n\t\tREPLY: ",reply)
+            except Exception as e:
+                print(e)
+    except Exception as e:
+        print(e)
+stream()
+
+        
